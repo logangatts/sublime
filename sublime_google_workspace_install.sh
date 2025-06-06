@@ -48,4 +48,4 @@ echo -e "${BOLDGREEN}Terraform process completed successfully.${ENDCOLOR}" | tee
 echo "Below is the Service Account JSON to be used for Sublime setup. Also saved as json_sublime.json"
 json_key=$(terraform output sa_key) 
 echo "${json_key}" &> json_sublime.json | tee -a $LOG_FILE  
-
+echo "${json_key}"
