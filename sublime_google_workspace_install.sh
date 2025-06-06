@@ -10,8 +10,6 @@ BOLDRED="\e[1;${RED}m"
 BOLDGREEN="\e[1;${GREEN}m"
 ENDCOLOR="\e[0m"
 
-echo -e "${BOLDGREEN}Behold! Bold, green text.${ENDCOLOR}"
-
 #create log folder and log file
 mkdir logs
 LOG_FILE="logs/sublime_$(date +%F_%T).log"
