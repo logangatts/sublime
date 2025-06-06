@@ -2,10 +2,6 @@
 # Author: Logan Gatts
 # Date: 06/05/2025
 
-# Need to enable Cloud Resource Manager and IAM API before running this tf. This is easily done by running the following command from the GCP cloud console:
-# gcloud services enable cloudresourcemanager.googleapis.com iam.googleapis.com
-# IAM is used to create the service profile
-
 terraform {
   required_providers {
     google = {
@@ -22,6 +18,15 @@ terraform {
 
 provider "google" {
   credentials = null #running in gcp cloud shell so it'll use those
+}
+
+#enable cloud resource manager and iam APIs for the current cloud console context - required to complete the rest of the tf config file
+data "external" "enable_tf_apis" {
+  program = ["bash", "-c", <<-EOT
+    COMMAND=$(gcloud services enable cloudresourcemanager.googleapis.com iam.googleapis.com)
+    jq -n --arg command "$COMMAND"
+  EOT
+  ]
 }
 
 # Make a random project ID and org ID (needed for project creation overlap prevention)
