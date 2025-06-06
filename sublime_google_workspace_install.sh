@@ -10,16 +10,16 @@ BOLDRED="\e[1;${RED}m"
 BOLDGREEN="\e[1;${GREEN}m"
 ENDCOLOR="\e[0m"
 
-#create log folder and log file
-mkdir logs
-LOG_FILE="logs/sublime_$(date +%F_%T).log"
-
 #get the tf file
 echo "Getting Terraform Files..." | tee -a $LOG_FILE
 git clone https://github.com/logangatts/sublime.git | tee -a $LOG_FILE
 
 #change into that cloned dir
 cd sublime
+
+#create log folder and log file
+mkdir logs
+LOG_FILE="logs/sublime_$(date +%F_%T).log"
 
 echo "Initializing Terraform..." | tee -a $LOG_FILE
 if ! terraform init 2>&1 | tee -a $LOG_FILE; then
