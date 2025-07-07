@@ -44,13 +44,14 @@ data "external" "org_and_project_id" {
 locals {
   org_id     = data.external.org_and_project_id.result.org_id
   project_id = data.external.org_and_project_id.result.project_id
+  oauthemail = data.external.current_user.result["email"]
 }
 
 variable "oauth_email" {
  description = "Support Email Address Used When Creating oAuth Branding"
  type        = string
  #default     = "logan@deltaspecter.com"
- default     = data.external.current_user.result["email"]
+ default     = local.oauthemail
 }
 #---------------------- Create Project ------------------------------------------
 resource "google_project" "sublime_project" {
