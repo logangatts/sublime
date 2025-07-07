@@ -44,15 +44,14 @@ data "external" "org_and_project_id" {
 locals {
   org_id     = data.external.org_and_project_id.result.org_id
   project_id = data.external.org_and_project_id.result.project_id
-  oauthemail = data.external.current_user.result["email"]
 }
 
-#variable "oauth_email" {
- #description = "Support Email Address Used When Creating oAuth Branding"
- #type        = string
+variable "oauth_email" {
+ description = "Support Email Address Used When Creating oAuth Branding"
+ type        = string
  #default     = "logan@deltaspecter.com"
- #default     = local.oauthemail
-#}
+ #default     = data.external.current_user.result["email"]
+}
 #---------------------- Create Project ------------------------------------------
 resource "google_project" "sublime_project" {
   name       = "sublime-platform"
@@ -112,8 +111,7 @@ resource "time_sleep" "wait_20_seconds" {
 #-------------------------------------------------------------------------------
 #setup the branding (steps 17-22)
 resource "google_iap_brand" "project_brand" {
-  #support_email     = var.oauth_email
-  #support_email     = local.oauthemail
+  support_email     = var.oauth_email
   application_title = "Sublime Platform"
   project             = google_project.sublime_project.project_id
   depends_on = [time_sleep.wait_20_seconds]
