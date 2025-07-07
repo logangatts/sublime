@@ -49,8 +49,8 @@ locals {
 variable "oauth_email" {
  description = "Support Email Address Used When Creating oAuth Branding"
  type        = string
- default     = "logan@deltaspecter.com"
- #default     = data.external.current_user.result["email"]
+ #default     = "logan@deltaspecter.com"
+ default     = data.external.current_user.result["email"]
 }
 #---------------------- Create Project ------------------------------------------
 resource "google_project" "sublime_project" {
